@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nicola Pucci — Projects</title>
+<meta name="description" content="Nicola Pucci — backend and platform projects: Factotum, a self-hosted voice assistant, and WAV, a real-time collaborative project management platform.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fbfbfa;
+    --surface: #ffffff;
+    --text: #1b1d21;
+    --muted: #5d636e;
+    --border: #e4e5e8;
+    --accent: #2f5bd3;
+    --accent-soft: #eaf0ff;
+    --chip: #f2f3f5;
+    --node: #f6f7f9;
+    --node-hi: #eaf0ff;
+    --node-data: #fff6e3;
+    --node-data-border: #e7c77a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #111316;
+      --surface: #181b1f;
+      --text: #e8e9ec;
+      --muted: #9aa0aa;
+      --border: #2a2e35;
+      --accent: #7ea2ff;
+      --accent-soft: #1d2740;
+      --chip: #22262c;
+      --node: #1f2328;
+      --node-hi: #1d2740;
+      --node-data: #2b2516;
+      --node-data-border: #7a6430;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #111316; --surface: #181b1f; --text: #e8e9ec; --muted: #9aa0aa; --border: #2a2e35;
+    --accent: #7ea2ff; --accent-soft: #1d2740; --chip: #22262c; --node: #1f2328; --node-hi: #1d2740;
+    --node-data: #2b2516; --node-data-border: #7a6430;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.6 Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code, .mono { font-family: "JetBrains Mono", ui-monospace, Consolas, monospace; font-size: .88em; }
+
+  .wrap { max-width: 920px; margin: 0 auto; padding: 0 16px; }
+
+  header.hero { padding: 72px 0 40px; }
+  .hero h1 { font-size: clamp(2rem, 5vw, 2.8rem); line-height: 1.15; margin: 0 0 8px; letter-spacing: -.02em; }
+  .hero .role { color: var(--muted); font-size: 1.15rem; margin: 0 0 20px; }
+  .hero p.lead { max-width: 640px; margin: 0 0 24px; }
+  .links { display: flex; flex-wrap: wrap; gap: 10px; }
+  .links a {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 14px; border: 1px solid var(--border); border-radius: 999px;
+    background: var(--surface); color: var(--text); font-size: .92rem;
+  }
+  .links a:hover { border-color: var(--accent); text-decoration: none; }
+  .links a.placeholder { color: var(--muted); border-style: dashed; }
+
+  nav.toc { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); font-size: .92rem; flex-wrap: wrap; }
+  nav.toc a { color: var(--muted); }
+
+  section.project { padding: 56px 0 24px; }
+  .project-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .project h2 { font-size: 1.9rem; margin: 0; letter-spacing: -.015em; }
+  .dates { color: var(--muted); font-size: .9rem; }
+  .tagline { font-size: 1.1rem; color: var(--muted); margin: 6px 0 20px; }
+
+  .repo { display: inline-flex; gap: 8px; align-items: center; font-size: .92rem; margin-bottom: 24px; }
+  .repo .pending { color: var(--muted); border: 1px dashed var(--border); padding: 3px 10px; border-radius: 6px; }
+
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 8px 0 28px; }
+  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .stat b { display: block; font-size: 1.5rem; line-height: 1.2; letter-spacing: -.01em; }
+  .stat span { color: var(--muted); font-size: .85rem; }
+
+  h3 { font-size: 1.05rem; margin: 28px 0 10px; }
+  ul.points { margin: 0; padding-left: 20px; }
+  ul.points li { margin: 6px 0; }
+  ul.points li strong { font-weight: 600; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 0; padding: 0; list-style: none; }
+  .chips li { background: var(--chip); border-radius: 6px; padding: 3px 9px; font-size: .84rem; }
+
+  figure.diagram { margin: 18px 0 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+  figure.diagram figcaption { color: var(--muted); font-size: .85rem; margin-top: 12px; }
+  .flow { display: grid; gap: 10px; align-items: center; }
+  .node { background: var(--node); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; font-size: .84rem; text-align: center; line-height: 1.35; }
+  .node small { display: block; color: var(--muted); font-size: .76rem; }
+  .node.hi { background: var(--node-hi); border-color: var(--accent); }
+  .node.data { background: var(--node-data); border-color: var(--node-data-border); }
+  .node.dashed { border-style: dashed; }
+  .col { display: grid; gap: 8px; }
+  .col-label { font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); text-align: center; }
+  .arrow { color: var(--muted); text-align: center; font-size: 1.1rem; }
+
+  .fx-flow { grid-template-columns: 1fr auto 1fr auto 1.4fr auto 1fr; }
+  .wav-flow { grid-template-columns: 1fr auto 1fr auto 1.4fr auto 1fr; }
+
+  .decisions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .decision { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; font-size: .92rem; }
+  .decision b { display: block; margin-bottom: 2px; }
+  .decision span { color: var(--muted); }
+
+  hr.sep { border: 0; border-top: 1px solid var(--border); margin: 32px 0 0; }
+  footer { padding: 40px 0 60px; color: var(--muted); font-size: .88rem; }
+
+  @media (max-width: 720px) {
+    header.hero { padding-top: 48px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .decisions { grid-template-columns: 1fr; }
+    .fx-flow, .wav-flow { grid-template-columns: 1fr; }
+    .arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>Nicola Pucci</h1>
+  <p class="role">Backend &amp; platform engineer · Python · distributed systems · applied LLMs</p>
+  <p class="lead">Two projects I designed and built end to end: a self-hosted voice assistant that runs on the models you choose, and a real-time collaborative project management platform deployed on Kubernetes.</p>
+  <div class="links">
+    <a href="https://github.com/nicolapucci">GitHub · nicolapucci</a>
+    <a href="mailto:cola081299@gmail.com">cola081299@gmail.com</a>
+    <!-- TODO: replace href and text with the LinkedIn profile URL -->
+    <a class="placeholder" href="#" aria-disabled="true">LinkedIn · coming soon</a>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#factotum">Factotum — self-hosted voice assistant</a>
+  <a href="#wav">WAV — real-time collaboration platform</a>
+</nav>
+
+<!-- ============================ FACTOTUM ============================ -->
+<section class="project" id="factotum">
+  <div class="project-head">
+    <h2>Factotum</h2>
+    <span class="dates">Sep 2026 – present · in active development</span>
+  </div>
+  <p class="tagline">A self-hosted voice assistant that answers from your own documents, performs actions on your devices, and runs on the models you choose.</p>
+  <div class="repo">
+    <!-- TODO: replace with the repository link once published -->
+    <span class="pending">Repository link coming soon</span>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b>8</b><span>services in a uv monorepo</span></div>
+    <div class="stat"><b>~5,000</b><span>unit &amp; integration tests</span></div>
+    <div class="stat"><b>27</b><span>architecture decision records</span></div>
+    <div class="stat"><b>5</b><span>LLM providers behind one API</span></div>
+  </div>
+
+  <p>Speakers with a microphone (a PC or a Raspberry Pi) connect to the system over a WebSocket. A person talks by pressing a key or saying a wake word; speech streams in, is transcribed, answered from the user's documents with retrieval-augmented generation, and the spoken answer streams back sentence by sentence. Every model — chat, embeddings, speech-to-text, text-to-speech — is chosen by the user: a local model through Ollama, or a hosted provider with their own key.</p>
+
+  <figure class="diagram">
+    <div class="flow fx-flow">
+      <div class="col">
+        <div class="col-label">Devices</div>
+        <div class="node hi">Speaker<small>PC · Raspberry Pi</small></div>
+        <div class="node">Terminal client</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="col">
+        <div class="col-label">Entry</div>
+        <div class="node hi">edge<small>WebSocket · audio in/out</small></div>
+        <div class="node">hub<small>tenants · tokens · pairing</small></div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="col">
+        <div class="col-label">Services</div>
+        <div class="node">conversation<small>one turn, streamed</small></div>
+        <div class="node">knowledge<small>hybrid search</small></div>
+        <div class="node">actions<small>skills · policy · audit</small></div>
+        <div class="node dashed">runner + egress<small>sandboxed scripts</small></div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="col">
+        <div class="col-label">Models</div>
+        <div class="node hi">model-gateway<small>the only place that knows models</small></div>
+        <div class="node data">Ollama · OpenAI · Anthropic · Gemini · any OpenAI-compatible</div>
+      </div>
+    </div>
+    <figcaption>Each service owns its schema in Postgres + pgvector. Contracts between services are typed pydantic models in one shared package.</figcaption>
+  </figure>
+
+  <h3>What I built</h3>
+  <ul class="points">
+    <li><strong>Model gateway</strong> — one normalized API for chat (streaming, structured output), embeddings, speech and web search over OpenAI, Anthropic, Gemini, Ollama and OpenAI-compatible servers, with retries, timeouts, typed errors and redaction. No other service names a model.</li>
+    <li><strong>Knowledge service</strong> — ingests text, Markdown, HTML, PDF and Word; chunks into searchable pieces and readable sections; hybrid retrieval (vector + full-text) in Postgres/pgvector that degrades instead of failing. Measured on a 931-page book: ~3,000 pieces indexed in under two minutes on a consumer GPU.</li>
+    <li><strong>Conversation service</strong> — answers a turn with citations, streamed, with no history carried along: past turns are searched only when a message refers to them, keeping prompts small for local models.</li>
+    <li><strong>Actions &amp; skills</strong> — a skill is a Markdown document with optional code and declared permissions. <em>The model proposes, the code decides</em>: a policy engine checks who the device acts for, the device's policy and the skill's targets; confirmations and approvals fail closed; every action lands in an audit trail.</li>
+    <li><strong>Sandboxed execution</strong> — each skill run gets a throwaway container whose only way out is an egress proxy that enforces a signed grant of reachable hosts, checking every resolved address.</li>
+    <li><strong>Voice pipeline</strong> — wake word on the device (openWakeWord), audio streamed to the edge with barge-in, local speech-to-text (faster-whisper) and text-to-speech (Piper) through the gateway, audio streamed back and played as it arrives.</li>
+    <li><strong>Identity</strong> — tenants, users, signed tokens every service verifies on its own, long-lived device pairing credentials. Permissions never depend on a voice.</li>
+  </ul>
+
+  <h3>Engineering practice</h3>
+  <div class="decisions">
+    <div class="decision"><b>Decisions are written down</b><span>27 ADRs record context, choice and consequences for every major design decision.</span></div>
+    <div class="decision"><b>Tested by default</b><span>Every change ships with tests; unit tests never touch the network. Live suites measure real models end to end.</span></div>
+    <div class="decision"><b>Fail closed</b><span>Unknown, unavailable or unconfigured means refused — approvals, URLs, environments.</span></div>
+    <div class="decision"><b>Built in vertical slices</b><span>More than a dozen slices so far, each delivering a working, documented, measured piece of the system.</span></div>
+  </div>
+
+  <h3>Stack</h3>
+  <ul class="chips">
+    <li>Python 3</li><li>FastAPI</li><li>pydantic</li><li>asyncpg</li><li>PostgreSQL + pgvector</li><li>WebSockets</li><li>Docker</li><li>uv workspace</li><li>pytest</li><li>mypy</li><li>Ollama</li><li>faster-whisper</li><li>Piper TTS</li><li>openWakeWord</li><li>Raspberry Pi</li>
+  </ul>
+</section>
+
+<hr class="sep">
+
+<!-- ============================ WAV ============================ -->
+<section class="project" id="wav">
+  <div class="project-head">
+    <h2>WAV</h2>
+    <span class="dates">Sep 2026</span>
+  </div>
+  <p class="tagline">A collaborative project management platform with hierarchical permissions and real-time updates, built as stateless microservices that scale horizontally.</p>
+  <div class="repo">
+    <a href="https://github.com/nicolapucci/wav-platform">github.com/nicolapucci/wav-platform →</a>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b>4</b><span>backend services + React SPA</span></div>
+    <div class="stat"><b>160+</b><span>backend &amp; end-to-end tests</span></div>
+    <div class="stat"><b>2</b><span>targets: Compose &amp; Kubernetes</span></div>
+    <div class="stat"><b>HPA</b><span>autoscaling on every stateless service</span></div>
+  </div>
+
+  <p>Work is organized as Organization → Project → recursive Layers → Tasks → Comments, with custom Kanban boards at organization or team level. Every node of the hierarchy has its own membership; a user's effective role is resolved by inheritance with override — the most specific role along the chain wins.</p>
+
+  <figure class="diagram">
+    <div class="flow wav-flow">
+      <div class="col">
+        <div class="col-label">Client</div>
+        <div class="node hi">Browser<small>React + TypeScript · Vite</small></div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="col">
+        <div class="col-label">Ingress</div>
+        <div class="node hi">nginx<small>TLS · Let's Encrypt</small></div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="col">
+        <div class="col-label">Services</div>
+        <div class="node">auth-service<small>JWT · rate limit · lockout</small></div>
+        <div class="node">api-service<small>REST</small></div>
+        <div class="node">ws-gateway<small>real-time events</small></div>
+        <div class="node">worker-service<small>audit · notifications</small></div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="col">
+        <div class="col-label">Data</div>
+        <div class="node data">PostgreSQL<small>source of truth · ltree</small></div>
+        <div class="node data">Redis<small>pub/sub · streams · cache</small></div>
+        <div class="node data dashed">MinIO (S3)<small>attachments</small></div>
+      </div>
+    </div>
+    <figcaption>One public entry point. Services never call each other: they communicate only through Redis (events and queues) and PostgreSQL, so each one scales by adding replicas.</figcaption>
+  </figure>
+
+  <h3>What I built</h3>
+  <ul class="points">
+    <li><strong>Multi-level RBAC</strong> — owner / admin / editor / reader roles on organizations, projects and nested layers, assignable to users or teams, resolved by inheritance with override; permission checks cached in Redis.</li>
+    <li><strong>Real-time collaboration</strong> — every mutation publishes an event; a WebSocket gateway bridges Redis Pub/Sub to connected clients, so writes never block on notification.</li>
+    <li><strong>Reliable background jobs</strong> — a worker consumes Redis Streams for audit and notifications, with retries and dead-letter handling for stuck jobs.</li>
+    <li><strong>Security hardening</strong> — JWT access/refresh, login rate limiting and lockout, soft-delete and deactivation, HTTPS everywhere; an audit that found and fixed 9 unauthenticated endpoints.</li>
+    <li><strong>Deployment</strong> — Docker Compose for the prototype, Kubernetes manifests with Horizontal Pod Autoscalers and metrics-server, automated Let's Encrypt certificates via certbot, a cloud-init setup for an Oracle Cloud VM.</li>
+    <li><strong>Testing &amp; CI</strong> — pytest suites per service, Playwright system tests run against the deployed Kubernetes stack, GitHub Actions on every push.</li>
+  </ul>
+
+  <h3>Stack</h3>
+  <ul class="chips">
+    <li>Python</li><li>FastAPI</li><li>PostgreSQL</li><li>Redis</li><li>MinIO</li><li>React</li><li>TypeScript</li><li>Vite</li><li>nginx</li><li>Docker Compose</li><li>Kubernetes</li><li>HPA</li><li>Let's Encrypt</li><li>Playwright</li><li>GitHub Actions</li>
+  </ul>
+</section>
+
+<footer>
+  © 2026 Nicola Pucci · <a href="https://github.com/nicolapucci">github.com/nicolapucci</a>
+</footer>
+
+</div>
+</body>
+</html>
