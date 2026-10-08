@@ -117,6 +117,26 @@
   .decision b { display: block; margin-bottom: 2px; }
   .decision span { color: var(--muted); }
 
+  .about p { margin: 0 0 14px; max-width: 720px; }
+  .about .status { color: var(--muted); font-size: .92rem; }
+
+  details.tech { margin-top: 20px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+  details.tech > summary {
+    list-style: none; cursor: pointer; user-select: none;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 14px 18px; font-weight: 600;
+  }
+  details.tech > summary::-webkit-details-marker { display: none; }
+  details.tech > summary .hint { color: var(--muted); font-weight: 400; font-size: .86rem; }
+  details.tech > summary .chev { color: var(--accent); transition: transform .2s; flex: none; }
+  details.tech[open] > summary .chev { transform: rotate(180deg); }
+  details.tech > summary:hover { color: var(--accent); }
+  details.tech > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 12px; }
+  details.tech .tech-body { padding: 4px 18px 22px; border-top: 1px solid var(--border); }
+  details.tech .stats { margin-top: 18px; }
+  details.tech figure.diagram { background: var(--bg); }
+  details.tech .stat, details.tech .decision { background: var(--bg); }
+
   hr.sep { border: 0; border-top: 1px solid var(--border); margin: 32px 0 0; }
   footer { padding: 40px 0 60px; color: var(--muted); font-size: .88rem; }
 
@@ -160,6 +180,16 @@
     <!-- TODO: replace with the repository link once published -->
     <span class="pending">Repository link coming soon</span>
   </div>
+
+  <div class="about">
+    <p>Factotum is a voice assistant you run on your own hardware. You talk to a small speaker, a Raspberry Pi or a PC with a microphone, and it answers questions from your own documents (manuals, notes, books), looks things up on the web, and carries out actions on your devices, such as turning on a light or playing music.</p>
+    <p>Unlike commercial assistants, it does not tie you to one company. You choose the AI models: a local model that keeps everything inside your home network, or a cloud provider with your own key. You can teach it new actions by writing simple “skills”. Every action goes through permission checks and runs in isolation, so a mistake by the AI cannot turn into a harmful action.</p>
+    <p class="status">Status: the core services and the full voice loop (wake word, speech, answer spoken back) work end to end. A web app to manage devices and documents is next.</p>
+  </div>
+
+  <details class="tech">
+    <summary><span>Technical details <span class="hint">· architecture, what I built, stack</span></span><span class="chev" aria-hidden="true">▾</span></summary>
+    <div class="tech-body">
 
   <div class="stats">
     <div class="stat"><b>8</b><span>services in a uv monorepo</span></div>
@@ -224,6 +254,8 @@
   <ul class="chips">
     <li>Python 3</li><li>FastAPI</li><li>pydantic</li><li>asyncpg</li><li>PostgreSQL + pgvector</li><li>WebSockets</li><li>Docker</li><li>uv workspace</li><li>pytest</li><li>mypy</li><li>Ollama</li><li>faster-whisper</li><li>Piper TTS</li><li>openWakeWord</li><li>Raspberry Pi</li>
   </ul>
+    </div>
+  </details>
 </section>
 
 <hr class="sep">
@@ -238,6 +270,15 @@
   <div class="repo">
     <a href="https://github.com/nicolapucci/wav-platform">github.com/nicolapucci/wav-platform →</a>
   </div>
+
+  <div class="about">
+    <p>WAV is a project management platform for teams working toward large goals. A project is broken down into as many levels of sub-goals as needed, down to concrete tasks with comments, and each team can arrange the tasks it cares about on its own Kanban board.</p>
+    <p>Everyone sees changes as they happen, without reloading the page. Access can be granted at any level (a whole organization, a single project or one branch of it) to individual people or whole teams. It is built to grow: each part can run in more copies as usage increases, and it is ready to deploy over HTTPS with Docker or Kubernetes.</p>
+  </div>
+
+  <details class="tech">
+    <summary><span>Technical details <span class="hint">· architecture, what I built, stack</span></span><span class="chev" aria-hidden="true">▾</span></summary>
+    <div class="tech-body">
 
   <div class="stats">
     <div class="stat"><b>4</b><span>backend services + React SPA</span></div>
@@ -292,6 +333,8 @@
   <ul class="chips">
     <li>Python</li><li>FastAPI</li><li>PostgreSQL</li><li>Redis</li><li>MinIO</li><li>React</li><li>TypeScript</li><li>Vite</li><li>nginx</li><li>Docker Compose</li><li>Kubernetes</li><li>HPA</li><li>Let's Encrypt</li><li>Playwright</li><li>GitHub Actions</li>
   </ul>
+    </div>
+  </details>
 </section>
 
 <footer>
@@ -299,5 +342,11 @@
 </footer>
 
 </div>
+<script>
+  // Printing or saving as PDF shows the technical details too.
+  window.addEventListener('beforeprint', () => {
+    document.querySelectorAll('details.tech').forEach(d => d.open = true);
+  });
+</script>
 </body>
 </html>
